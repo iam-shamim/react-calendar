@@ -1,0 +1,437 @@
+.calendar-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-view .header {
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: row nowrap;
+    align-items: center;
+    min-height: 2.5em;
+}
+
+.calendar-view .header .periodLabel {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    min-height: 1.2em;
+}
+
+.calendar-view .dayList {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+}
+
+.calendar-view .dayList .day {
+    display: flex;
+    flex: 1 1 0;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* The calendar grid should take up the remaining vertical space */
+.calendar-view .weeks {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
+
+    /* Allow grid to scroll if there are too may weeks to fit in the view */
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+/* Use flex basis of 0 on week row so all weeks will be same height regardless of content */
+.calendar-view .week {
+    display: flex;
+    flex: 1 1 0;
+    flex-flow: row nowrap;
+    min-height: 3em;
+
+    /* Allow week events to scroll if they are too tall */
+    position: relative;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+.calendar-view .weeks::-webkit-scrollbar,
+.calendar-view .week::-webkit-scrollbar {
+    width: 0; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+}
+
+.calendar-view .week .day {
+    display: flex;
+    flex: 1 1 0;
+    position: relative; /* Fallback for IE11, which doesn't support sticky */
+    position: sticky; /* When week's events are scrolled, keep the day content fixed */
+    top: 0;
+}
+
+.calendar-view .day .content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.calendar-view .day .date {
+    float: right;
+    clear: both;
+}
+
+.calendar-view .event {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+/* Header */
+
+.calendar-view .periodLabel .startDay::before,
+.calendar-view .periodLabel .endDay::before,
+.calendar-view.period-month .periodLabel .startYear::before,
+.calendar-view.period-month .periodLabel .endYear::before,
+.calendar-view.period-year .periodLabel .endYear::before {
+    content: "\00A0";
+}
+
+.calendar-view .periodLabel .endMonth::before,
+.calendar-view.period-year:not(.periodCount-1) .periodLabel .endYear::before,
+.calendar-view.period-week .periodLabel.singleMonth .endDay::before {
+    content: "\00A0\2013\00A0";
+}
+
+.calendar-view.period-week .periodLabel .startYear::before,
+.calendar-view.period-week .periodLabel .endYear::before {
+    content: ",\00A0";
+}
+
+.calendar-view .periodLabel.singleYear .startYear,
+.calendar-view .periodLabel.singleMonth .endMonth,
+.calendar-view.period-month .periodLabel .startDay,
+.calendar-view.period-month .periodLabel .endDay,
+.calendar-view.period-year .periodLabel .startDay,
+.calendar-view.period-year .periodLabel .endDay,
+.calendar-view.period-year .periodLabel .startMonth,
+.calendar-view.period-year .periodLabel .endMonth,
+.calendar-view.period-month.periodCount-1 .periodLabel .endMonth,
+.calendar-view.period-month.periodCount-1 .periodLabel .startYear,
+.calendar-view.period-year.periodCount-1 .periodLabel .startYear {
+    display: none;
+}
+
+/* Header navigation buttons */
+
+.calendar-view .header .nav .previousPeriod::after {
+    content: "<";
+}
+
+.calendar-view .header .nav .nextPeriod::after {
+    content: ">";
+}
+
+.calendar-view .header .nav .previousYear::after {
+    content: "<<";
+}
+
+.calendar-view .header .nav .nextYear::after {
+    content: ">>";
+}
+
+.calendar-view .header .nav .currentPeriod {
+    display: none;
+}
+
+.calendar-view.past .header .nav .currentPeriod,
+.calendar-view.future .header .nav .currentPeriod {
+    display: inline-block;
+}
+
+.calendar-view.past .header .nav .currentPeriod::after {
+    content: "\21BB";
+}
+
+.calendar-view.future .header .nav .currentPeriod::after {
+    content: "\21BA";
+}
+
+/* Colors */
+
+.calendar-view .header,
+.calendar-view button,
+.calendar-view .dayList,
+.calendar-view .weeks,
+.calendar-view .week,
+.calendar-view .day,
+.calendar-view .event {
+    border-style: solid;
+    border-color: #ddd;
+}
+
+/* Event Times */
+
+.calendar-view .event .startTime:not(.hasEndTime),
+.calendar-view .event .endTime {
+    margin-right: 0.4em;
+}
+
+.calendar-view .event .endTime::before {
+    content: "-";
+}
+
+/* Internal Metrics */
+
+.calendar-view,
+.calendar-view div,
+.calendar-view button {
+    box-sizing: border-box;
+    line-height: 1em;
+    font-size: 1em;
+}
+
+.calendar-view .dayList div,
+.calendar-view .date,
+.calendar-view .event {
+    padding: 0.2em;
+}
+
+.calendar-view .header .nav,
+.calendar-view .header .periodLabel {
+    margin: 0.4em 0.6em;
+}
+
+.calendar-view .header .nav button,
+.calendar-view .header .periodLabel {
+    padding: 0.4em 0.6em;
+}
+
+/* Allows emoji icons or labels (such as holidays) to be added more easily to specific dates by having the margin set already. */
+.calendar-view .day .date::before {
+    margin-right: 0.5em;
+}
+
+/* Borders */
+
+.calendar-view .week {
+    border-width: 0;
+}
+
+.calendar-view .weeks {
+    border-width: 0 0 1px 1px;
+}
+
+.calendar-view .header {
+    border-width: 1px 1px 0 1px;
+}
+
+.calendar-view .dayList {
+    border-width: 0 0 0 1px;
+}
+
+.calendar-view .day {
+    border-width: 1px 1px 0 0;
+}
+
+.calendar-view .header button,
+.calendar-view .event {
+    border-width: 1px;
+}
+
+/* Positioning for event eventRows */
+
+.calendar-view .event.eventRow1 {
+    top: 1.4em;
+}
+
+.calendar-view .event.eventRow2 {
+    top: calc(2 * 1.4em + 2px);
+}
+
+.calendar-view .event.eventRow3 {
+    top: calc(3 * 1.4em + 4px);
+}
+
+.calendar-view .event.eventRow4 {
+    top: calc(4 * 1.4em + 6px);
+}
+
+.calendar-view .event.eventRow5 {
+    top: calc(5 * 1.4em + 8px);
+}
+
+.calendar-view .event.eventRow6 {
+    top: calc(6 * 1.4em + 10px);
+}
+
+.calendar-view .event.eventRow7 {
+    top: calc(7 * 1.4em + 12px);
+}
+
+.calendar-view .event.eventRow8 {
+    top: calc(8 * 1.4em + 14px);
+}
+
+.calendar-view .event.eventRow9 {
+    top: calc(9 * 1.4em + 16px);
+}
+
+.calendar-view .event.eventRow10 {
+    top: calc(10 * 1.4em + 18px);
+}
+
+.calendar-view .event.eventRow11 {
+    top: calc(11 * 1.4em + 20px);
+}
+
+.calendar-view .event.eventRow12 {
+    top: calc(12 * 1.4em + 22px);
+}
+
+.calendar-view .event.eventRow13 {
+    top: calc(13 * 1.4em + 24px);
+}
+
+.calendar-view .event.eventRow14 {
+    top: calc(14 * 1.4em + 26px);
+}
+
+.calendar-view .event.eventRow15 {
+    top: calc(15 * 1.4em + 28px);
+}
+
+.calendar-view .event.eventRow16 {
+    top: calc(16 * 1.4em + 30px);
+}
+
+.calendar-view .event.eventRow17 {
+    top: calc(17 * 1.4em + 32px);
+}
+
+.calendar-view .event.eventRow18 {
+    top: calc(18 * 1.4em + 34px);
+}
+
+.calendar-view .event.eventRow19 {
+    top: calc(19 * 1.4em + 36px);
+}
+
+.calendar-view .event.eventRow20 {
+    top: calc(20 * 1.4em + 38px);
+}
+
+.calendar-view .event.eventRow0 {
+    display: none;
+} /* More than 20 eventRows not currently supported */
+
+.calendar-view .event.offset0 {
+    left: 0;
+}
+
+.calendar-view .event.offset1 {
+    left: calc((100% / 7));
+}
+
+.calendar-view .event.offset2 {
+    left: calc((200% / 7));
+}
+
+.calendar-view .event.offset3 {
+    left: calc((300% / 7));
+}
+
+.calendar-view .event.offset4 {
+    left: calc((400% / 7));
+}
+
+.calendar-view .event.offset5 {
+    left: calc((500% / 7));
+}
+
+.calendar-view .event.offset6 {
+    left: calc((600% / 7));
+}
+
+/* Metrics for events spanning dates */
+
+.calendar-view .event.span1 {
+    width: calc((100% / 7) - 0.05em);
+}
+
+.calendar-view .event.span2 {
+    width: calc((200% / 7) - 0.05em);
+}
+
+.calendar-view .event.span3 {
+    width: calc((300% / 7) - 0.05em);
+    text-align: center;
+}
+
+.calendar-view .event.span4 {
+    width: calc((400% / 7) - 0.05em);
+    text-align: center;
+}
+
+.calendar-view .event.span5 {
+    width: calc((500% / 7) - 0.05em);
+    text-align: center;
+}
+
+.calendar-view .event.span6 {
+    width: calc((600% / 7) - 0.05em);
+    text-align: center;
+}
+
+.calendar-view .event.span7 {
+    width: calc((700% / 7) - 0.05em);
+    text-align: center;
+}
+.day_active{
+    background: #0b9c1e;
+}
+.day_active .date{
+    color: #FFF;
+}
+
+
+
+
+.event_short_list{width: 81%;overflow: hidden;}
+.event_short_list ul{list-style: none;
+    height: 40px;
+    overflow-y: scroll;
+    width: 170%;}
+.event_short_list ul li{margin: 1px 0px;
+    border-radius: 4px;    width: 62%;
+    margin-left: 2px;    padding: 2px 3px;}
+.event_short_list .occasion{background: #ebdafb;}
+.event_short_list .occasion.public_holiday{background: #f7042f;color: #FFF;}
+.event_short_list .historical_day{background: #ffffca;}
+.event_type_color{    list-style: none;}
+.event_type_color li{height: 20px;width: 20px;display: inline-block;cursor:pointer;border: 2px solid #000; }
+.event_type_color li.holy_day_occasion{background: #f7042f;}
+.event_type_color li.non_holy_day_occasion{    background: #ebdafb;}
+.event_type_color li.historical_day{background: #ffffca;}
+.event_type_color li.reset_filter{background: #FFFFFF;}
+
+.event_list{list-style: none;width: 60%;float:left;}
+.event_list li{margin: 1px;padding: 3px 6px;border-radius: 4px;font-weight: 600;font-size: 1.1em;}
+.event_list li.occasion{background: #ebdafb;}
+.event_list li.occasion.public_holiday{background: #f7042f;color: #FFF;}
+.event_list li.historical_day{background: #ffffca;}
+
+.event_des_view{float: left;width: 35%;margin: 2px 10px;background: #e6e6e6;padding: 5px;}
+.event_des_view .round_border{border: 1px solid;padding: 1px 5px;border-radius: 4px;}
+#delete_modal .round_border{border: 1px solid;padding: 1px 5px;border-radius: 4px;}
+.calendar-view .today{border-width: 2px;border-style: dashed;border-color: #b9acac;}
+.event_list li {display: block;overflow: auto;width: 100%;border: 2px solid #000000;margin-top: 3px;}
+.event_list li .event_title{width: 90%;float:left;}
+.event_content_list { display:none;width: 100%;float: left;}
+.calendar-view .weeks{position:relative;}
+.calendar-view .pre_loader{position:absolute;width:100%;background:black;height:100%;z-index:999;opacity:0.6;}
