@@ -3,8 +3,8 @@ import EventDeleteModal from '../component/calendar/EventDeleteModal';
 import EventFilterWithColor from '../component/calendar/EventFilterWithColor';
 import CalendarHeader from "../component/calendar/CalendarHeader";
 import CalendarBody from "../component/calendar/CalendarBody";
+import EventModal from "../component/calendar/EventModal";
 class Calendar extends Component{
-
     render() {
         return (
             <div>
@@ -14,12 +14,12 @@ class Calendar extends Component{
                             <div className="panel-heading"><label>Event Calendar</label></div>
                             <div className="panel-body">
                                 <EventDeleteModal />
+                                <EventModal />
                                 <div id="app">
                                     <EventFilterWithColor />
                                     <div className="calendar-view holiday-us-traditional holiday-us-official locale-en locale-en-us y2018 m05 period-month periodCount-1">
                                         <CalendarHeader />
                                         <CalendarBody />
-
                                     </div>
                                     <ul className="event_list event_group_list">
                                         <div></div>

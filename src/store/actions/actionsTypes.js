@@ -1,0 +1,13 @@
+export const MONTH_CHANGE = 'MONTH_CHANGE';
+export const YEAR_CHANGE = 'YEAR_CHANGE';
+export const DATE_RESET = 'DATE_RESET';
+export const FETCH_EVENTS = 'FETCH_EVENTS';
+export const DAY_SELECTED = 'DAY_SELECTED';
+export const FETCHED_EVENTS = 'FETCHED_EVENTS';
+export const EVENT_EDIT = 'EVENT_EDIT';
+export const EVENT_ADD = 'EVENT_ADD';
+export const EVENT_ADDED = 'EVENT_ADDED';
+export const EVENT_UPDATED = 'EVENT_UPDATED';
+export const EVENT_DELETE_MODAL = 'EVENT_DELETE_MODAL';
+export const EVENT_DELETED = 'EVENT_DELETED';
+export const EVENT_SELECT = 'EVENT_SELECT';

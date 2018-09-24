@@ -393,7 +393,7 @@
     text-align: center;
 }
 .day_active{
-    background: #0b9c1e;
+    background: #04520e;
 }
 .day_active .date{
     color: #FFF;
@@ -407,9 +407,7 @@
     height: 40px;
     overflow-y: scroll;
     width: 170%;}
-.event_short_list ul li{margin: 1px 0px;
-    border-radius: 4px;    width: 62%;
-    margin-left: 2px;    padding: 2px 3px;}
+.event_short_list ul li{margin: 1px 0px;border-radius: 4px;width: 62%;margin-left: 2px;padding: 2px 3px; background: #21af34}
 .event_short_list .occasion{background: #ebdafb;}
 .event_short_list .occasion.public_holiday{background: #f7042f;color: #FFF;}
 .event_short_list .historical_day{background: #ffffca;}
@@ -435,3 +433,7 @@
 .event_content_list { display:none;width: 100%;float: left;}
 .calendar-view .weeks{position:relative;}
 .calendar-view .pre_loader{position:absolute;width:100%;background:black;height:100%;z-index:999;opacity:0.6;}
+.d-none{display: none;}
+.d-block{display: block;}
+.pointer{cursor:pointer}
+.modal-dialog{z-index: 10000;}
